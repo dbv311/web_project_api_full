@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 mongoose.connect("mongodb://127.0.0.1:27017/aroundb");
 
-const { errors } = require(celebrate);
+const { errors } = require("celebrate");
 
 const app = express();
 
@@ -30,7 +30,7 @@ app.get("/*", (req, res) => {
   res.status(404).send({ message: "Recurso solicitado no encontrado" });
 });
 
-app.use(errors);
+app.use(errors());
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}...`);

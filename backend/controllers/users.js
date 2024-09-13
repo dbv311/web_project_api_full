@@ -1,6 +1,7 @@
 const UserInfo = require("../models/user");
 const handleError = require("../utils/HandleError");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const allUsers = (req, res) => {
   UserInfo.find({}).then((user) => {
@@ -18,12 +19,12 @@ const getUser = (req, res) => {
 };
 
 const newUser = (req, res) => {
-  const { email, password, name, about, avatar } = req.body;
+  const { email, password } = req.body;
   bcrypt
-    .hash(req.body.password, 10)
+    .hash(password, 10)
     .then((hash) =>
       UserInfo.create({
-        email: req.body.email,
+        email,
         password: hash,
       })
     )
@@ -32,12 +33,22 @@ const newUser = (req, res) => {
         _id: user._id,
         email: user.email,
       });
-    });
-  UserInfo.create({ name, about, avatar })
-    .then((user) => {
-      res.send(user);
     })
-    .catch((error) => handleError(error, res));
+    .catch((error) => {
+      handleError(error, res);
+    });
+};
+
+const login = (req, res) => {
+  const { email, password } = req.body;
+  return User.findUserByCredentials(email, password)
+    .then((user) => {
+      const token = jwt.sign({ _id: user._id }, " ");
+      res.send({ token });
+    })
+    .catch((err) => {
+      res.status(401).send({ message: err.message });
+    });
 };
 
 const updateUser = (req, res) => {
@@ -60,4 +71,11 @@ const updateAvatar = (req, res) => {
     .catch((error) => handleError(error, res));
 };
 
-module.exports = { allUsers, getUser, newUser, updateUser, updateAvatar };
+module.exports = {
+  allUsers,
+  getUser,
+  newUser,
+  login,
+  updateUser,
+  updateAvatar,
+};

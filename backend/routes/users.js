@@ -6,24 +6,31 @@ const {
   allUsers,
   getUser,
   newUser,
+  login,
   updateUser,
   updateAvatar,
 } = require("../controllers/users");
 
 router.post(
-  "/users",
+  "/signup",
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       email: Joi.string().required(),
       password: Joi.string().required(),
-      name: Joi.string().default("Jacques Cousteau"),
-      about: Joi.string().default("Explorador"),
-      avatar: Joi.string().default(
-        "https://practicum-content.s3.us-west-1.amazonaws.com/resources/moved_avatar_1604080799.jpg"
-      ),
     }),
   }),
   newUser
+);
+
+router.post(
+  "/signin",
+  celebrate({
+    [Segments.BODY]: Joi.object().keys({
+      email: Joi.string().required(),
+      password: Joi.string().required(),
+    }),
+  }),
+  login
 );
 
 router.get("/users", allUsers);
