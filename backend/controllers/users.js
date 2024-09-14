@@ -41,9 +41,11 @@ const newUser = (req, res) => {
 
 const login = (req, res) => {
   const { email, password } = req.body;
-  return User.findUserByCredentials(email, password)
+  return UserInfo.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({ _id: user._id }, " ");
+      const token = jwt.sign({ _id: user._id }, "loquesea", {
+        expiresIn: "7d",
+      });
       res.send({ token });
     })
     .catch((err) => {
