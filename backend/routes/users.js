@@ -3,6 +3,7 @@ const router = require("express").Router();
 const { celebrate, Joi, Segments } = require("celebrate");
 
 const auth = require("../middleware/auth");
+const hasError = require("../middleware/hasError");
 
 const {
   allUsers,
@@ -12,6 +13,12 @@ const {
   updateUser,
   updateAvatar,
 } = require("../controllers/users");
+
+router.get("/crash-test", () => {
+  setTimeout(() => {
+    throw new Error("El servidor va a caer");
+  }, 0);
+});
 
 router.post(
   "/signup",
@@ -36,6 +43,8 @@ router.post(
 );
 
 router.use(auth);
+
+router.use(hasError);
 
 router.get("/users", allUsers);
 
