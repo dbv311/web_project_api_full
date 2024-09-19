@@ -92,9 +92,6 @@ class Api {
   }
 }
 
-const api = new Api(
-  "https://around.nomoreparties.co/v1/web_es_11/",
-  "9f34b60b-6921-4710-9bb7-6e235ad36897"
-);
+const api = new Api("https://www.maxidanna.desarrollointerno.com", "Bearer ");
 
 export default api;
