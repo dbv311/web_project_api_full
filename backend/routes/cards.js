@@ -10,6 +10,13 @@ const {
   cardDislike,
 } = require("../controllers/cards");
 
+const validateURL = (value, helpers) => {
+  if (validator.isURL(value)) {
+    return value;
+  }
+  return helpers.error("string.uri");
+};
+
 router.get("/cards", getCards);
 
 router.post(
@@ -17,7 +24,7 @@ router.post(
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       name: Joi.string().required(),
-      link: Joi.required(),
+      link: Joi.required().custom(validateURL),
     }),
   }),
   createCard
