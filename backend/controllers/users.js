@@ -10,7 +10,7 @@ const allUsers = (req, res) => {
 };
 
 const getUser = (req, res) => {
-  UserInfo.findById(req.params.id)
+  UserInfo.findById(req.user._id)
     .orFail()
     .then((user) => {
       res.send(user);
@@ -18,7 +18,7 @@ const getUser = (req, res) => {
     .catch((error) => handleError(error, res));
 };
 
-const newUser = (req, res) => {
+const createUser = (req, res) => {
   const { email, password } = req.body;
   bcrypt
     .hash(password, 10)
@@ -76,7 +76,7 @@ const updateAvatar = (req, res) => {
 module.exports = {
   allUsers,
   getUser,
-  newUser,
+  createUser,
   login,
   updateUser,
   updateAvatar,

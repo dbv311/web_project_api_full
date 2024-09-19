@@ -133,7 +133,7 @@ function App() {
 
   React.useEffect(() => {
     tokenCheck();
-  }, []);
+  }, [history.push]);
 
   const handleLogout = () => {
     localStorage.removeItem("jwt");
@@ -141,7 +141,6 @@ function App() {
     setIsLoggedIn(false);
     history.push("/login");
   };
-  //console.log(currentUser);
 
   const tokenCheck = () => {
     const jwt = localStorage.getItem("jwt");

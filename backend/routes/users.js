@@ -2,10 +2,12 @@ const router = require("express").Router();
 
 const { celebrate, Joi, Segments } = require("celebrate");
 
+const auth = require("../middleware/auth");
+
 const {
   allUsers,
   getUser,
-  newUser,
+  createUser,
   login,
   updateUser,
   updateAvatar,
@@ -19,7 +21,7 @@ router.post(
       password: Joi.string().required(),
     }),
   }),
-  newUser
+  createUser
 );
 
 router.post(
@@ -33,9 +35,11 @@ router.post(
   login
 );
 
+router.use(auth);
+
 router.get("/users", allUsers);
 
-router.get("/users/:id", getUser);
+router.get("/users/me", getUser);
 
 router.patch("/users/me", updateUser);
 
