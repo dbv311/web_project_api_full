@@ -26,7 +26,7 @@ export default function Register() {
           setOpen(true);
           setTimeout(() => {
             history.push("/login");
-          }, 5000);
+          }, 3000);
         })
         .catch((error) => {
           console.log(error);

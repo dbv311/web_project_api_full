@@ -1,13 +1,13 @@
 class Api {
-  constructor(url, token) {
+  constructor(url) {
     this._url = url;
-    this._token = token;
+    this._token = localStorage.getItem("jwt");
   }
 
   async getUserInfo() {
     const res = await fetch(`${this._url}users/me`, {
       headers: {
-        authorization: this._token,
+        authorization: this._token || localStorage.getItem("jwt"),
       },
     });
     return await res.json();
@@ -16,7 +16,7 @@ class Api {
   async getCards() {
     const res = await fetch(`${this._url}cards`, {
       headers: {
-        authorization: this._token,
+        authorization: this._token || localStorage.getItem("jwt"),
       },
     });
     return await res.json();
@@ -25,7 +25,7 @@ class Api {
   async updateUser(name, about) {
     const res = await fetch(`${this._url}users/me`, {
       headers: {
-        authorization: this._token,
+        authorization: this._token || localStorage.getItem("jwt"),
         "Content-Type": "application/json",
       },
       method: "PATCH",
@@ -37,7 +37,7 @@ class Api {
   async postCards(name, link) {
     const res = await fetch(`${this._url}cards`, {
       headers: {
-        authorization: this._token,
+        authorization: this._token || localStorage.getItem("jwt"),
         "Content-Type": "application/json",
       },
       method: "POST",
@@ -49,7 +49,7 @@ class Api {
   async deleteCard(cardId) {
     const res = await fetch(`${this._url}cards/${cardId}`, {
       headers: {
-        authorization: this._token,
+        authorization: this._token || localStorage.getItem("jwt"),
         "Content-Type": "application/json",
       },
       method: "DELETE",
@@ -60,7 +60,7 @@ class Api {
   async deleteLike(cardId) {
     const res = await fetch(`${this._url}cards/likes/${cardId}`, {
       headers: {
-        authorization: this._token,
+        authorization: this._token || localStorage.getItem("jwt"),
         "Content-Type": "application/json",
       },
       method: "DELETE",
@@ -71,7 +71,7 @@ class Api {
   async putLike(cardId) {
     const res = await fetch(`${this._url}cards/likes/${cardId}`, {
       headers: {
-        authorization: this._token,
+        authorization: this._token || localStorage.getItem("jwt"),
         "Content-Type": "application/json",
       },
       method: "PUT",
@@ -82,7 +82,7 @@ class Api {
   async updateAvatar(avatar) {
     const res = await fetch(`${this._url}users/me/avatar`, {
       headers: {
-        authorization: this._token,
+        authorization: this._token || localStorage.getItem("jwt"),
         "Content-Type": "application/json",
       },
       method: "PATCH",
@@ -92,9 +92,6 @@ class Api {
   }
 }
 
-const api = new Api(
-  "https://around.nomoreparties.co/v1/web_es_11/",
-  "9f34b60b-6921-4710-9bb7-6e235ad36897"
-);
+const api = new Api("http://localhost:3000/");
 
 export default api;

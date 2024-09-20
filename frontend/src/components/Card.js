@@ -18,7 +18,7 @@ export default function Card({
   };
 
   const isCardOwner = () => {
-    return owner._id === user._id;
+    return owner === user._id;
   };
 
   const handleClick = () => {

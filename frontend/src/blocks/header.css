@@ -24,6 +24,7 @@
   color: white;
   border: none;
   text-decoration-line: none;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 767px) {

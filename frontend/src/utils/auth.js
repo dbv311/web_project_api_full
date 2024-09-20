@@ -1,4 +1,4 @@
-export const BASE_URL = "https://tripleten.desarrollointerno.com";
+export const BASE_URL = "http://localhost:3000";
 
 export const register = (email, password) => {
   return fetch(`${BASE_URL}/signup`, {
@@ -11,7 +11,7 @@ export const register = (email, password) => {
   })
     .then((response) => {
       try {
-        if (response.status === 200) {
+        if (response.status === 201) {
           return response.json();
         }
       } catch (e) {
@@ -48,7 +48,7 @@ export const checkToken = (token) => {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+      Authorization: `${token}`,
     },
   })
     .then((res) => {
