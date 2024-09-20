@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const validator = require("validator");
 
 const { celebrate, Joi, Segments } = require("celebrate");
 
