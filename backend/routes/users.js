@@ -4,7 +4,6 @@ const { celebrate, Joi, Segments } = require("celebrate");
 const validator = require("validator");
 
 const auth = require("../middleware/auth");
-const hasError = require("../middleware/hasError");
 
 const {
   allUsers,
@@ -52,8 +51,6 @@ router.post(
 
 router.use(auth);
 
-router.use(hasError);
-
 router.get("/users", allUsers);
 
 router.get("/users/me", getUser);
@@ -63,7 +60,7 @@ router.patch(
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       name: Joi.string().required(),
-      link: Joi.required().custom(validateURL),
+      about: Joi.string().required(),
     }),
   }),
   updateUser
@@ -73,7 +70,7 @@ router.patch(
   "/users/me/avatar",
   celebrate({
     [Segments.BODY]: Joi.object().keys({
-      link: Joi.required().custom(validateURL),
+      avatar: Joi.required().custom(validateURL),
     }),
   }),
   updateAvatar

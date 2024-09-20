@@ -2,6 +2,9 @@ const UserInfo = require("../models/user");
 const handleError = require("../utils/HandleError");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
+
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 const allUsers = (req, res) => {
   UserInfo.find({}).then((user) => {
@@ -43,7 +46,8 @@ const login = (req, res) => {
   const { email, password } = req.body;
   return UserInfo.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({ _id: user._id }, "loquesea", {
+      const secretWord = NODE_ENV === "production" ? JWT_SECRET : "loquesea";
+      const token = jwt.sign({ _id: user._id }, secretWord, {
         expiresIn: "7d",
       });
       res.send({ token });
