@@ -92,6 +92,6 @@ class Api {
   }
 }
 
-const api = new Api("https://www.maxidanna.desarrollointerno.com", "Bearer ");
+const api = new Api("https://", "Bearer ");
 
 export default api;
