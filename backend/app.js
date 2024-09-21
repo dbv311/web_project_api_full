@@ -5,6 +5,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/aroundb");
 const cors = require("cors");
 const { requestLogger, errorLogger } = require("./middleware/logger");
 const hasError = require("./middleware/hasError");
+const { allowedOrigins } = require("./utils/const");
 
 const { errors } = require("celebrate");
 
@@ -13,7 +14,7 @@ const app = express();
 const { PORT = 3000 } = process.env;
 
 app.use(cors());
-app.options("*", cors());
+app.options("*", cors(allowedOrigins));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
