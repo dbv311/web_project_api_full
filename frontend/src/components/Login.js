@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import * as auth from "../utils/auth.js";
+import api from "../utils/api.js";
 import "../blocks/login.css";
 
 export default function Login({ setIsLoggedIn, email, setEmail }) {
@@ -17,6 +18,7 @@ export default function Login({ setIsLoggedIn, email, setEmail }) {
       .then((res) => {
         if (res.token) {
           localStorage.setItem("jwt", res.token);
+          api.setToken(res.token);
           setIsLoggedIn(true);
           history.push("/home");
         }

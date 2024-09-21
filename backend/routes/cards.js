@@ -33,8 +33,8 @@ router.post(
 
 router.delete("/cards/:cardId", deleteCard);
 
-router.put("/cards/:cardId/likes", cardLike);
+router.put("/cards/likes/:cardId", cardLike);
 
-router.delete("/cards/:cardId/likes", cardDislike);
+router.delete("/cards/likes/:cardId", cardDislike);
 
 module.exports = router;

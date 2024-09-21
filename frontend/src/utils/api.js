@@ -4,6 +4,10 @@ class Api {
     this._token = localStorage.getItem("jwt");
   }
 
+  setToken(token) {
+    this._token = token;
+  }
+
   async getUserInfo() {
     const res = await fetch(`${this._url}users/me`, {
       headers: {

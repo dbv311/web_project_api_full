@@ -14,7 +14,7 @@ export default function Card({
   const user = React.useContext(CurrentUserContext);
 
   const hasLikeUser = () => {
-    return likes.some((like) => like._id === user._id);
+    return likes.some((like) => like === user._id);
   };
 
   const isCardOwner = () => {
