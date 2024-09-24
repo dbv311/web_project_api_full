@@ -96,6 +96,6 @@ class Api {
   }
 }
 
-const api = new Api("http://api.maxidanna.mooo.com");
+const api = new Api("https://api.maxidanna.mooo.com/");
 
 export default api;

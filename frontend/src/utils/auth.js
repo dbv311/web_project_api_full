@@ -1,4 +1,4 @@
-export const BASE_URL = "http://maxidanna.mooo.com";
+export const BASE_URL = "https://api.maxidanna.mooo.com";
 
 export const register = (email, password) => {
   return fetch(`${BASE_URL}/signup`, {
